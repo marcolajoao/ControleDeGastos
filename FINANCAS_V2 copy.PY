@@ -4,11 +4,11 @@ from sqlalchemy import create_engine, text
 
 # 1. Configurações de conexão e variável obrigatória
 DB_CREDENCIAIS = {
-    'usuario': 'joao',
-    'senha': 'joao',
+    'usuario': 'root',
+    'senha': 'root',
     'host': 'localhost',
     'porta': 3306,
-    'banco': 'GASTO'
+    'banco': 'TESTE'
 }
 
 # VARIÁVEL OBRIGATÓRIA - Defina o código da pessoa quando for executar
@@ -57,7 +57,7 @@ try:
             raise ValueError(f"NNUMEPESS {NNUMEPESS} não encontrado na tabela HSSPESS!")
         
         # Insere os dados
-        LE_PLANILHA.to_sql('gastos_nubank', con=engine, if_exists='append', index=False)
+        LE_PLANILHA.to_sql('TESTE', con=engine, if_exists='append', index=False)
     
     print(f"Importação concluída com sucesso para NNUMEPESS = {NNUMEPESS}!")
     
