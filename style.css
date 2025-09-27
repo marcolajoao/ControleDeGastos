@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+th, td {
+    border: 1px solid #7e6a6a;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #8d8c8c;
+}
+.acoes a {
+    margin: 0 5px;
+    text-decoration: none;
+}
+.btn-editar { color: #4CAF50; }
+.btn-deletar { color: #f44336; }
+form {
+    margin: 20px 0;
+    padding: 15px;
+    background: #777777;
+    border-radius: 5px;
+}
+input, button {
+    padding: 8px;
+    margin: 5px 0;
+}

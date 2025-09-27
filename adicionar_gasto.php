@@ -1,0 +1,30 @@
+<?php
+$host = 'localhost';
+$dbname = 'GASTO';
+$username = 'joao';
+$password = 'joao';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    try {
+        $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "INSERT INTO gastos_nubank (DREALGASTO, CDESCGASTO, NVALOGASTO, CCATEGASTO,NNUMEPESS) 
+                VALUES (:data, :descricao, :valor, :categoria)";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            ':data' => $_POST['data'],
+            ':descricao' => $_POST['descricao'],
+            ':valor' => $_POST['valor'],
+            ':categoria' => $_POST['categoria']
+            
+        ]);
+
+        header("Location: gastos_pessoa.php"); // Redireciona de volta
+        exit();
+    } catch(PDOException $e) {
+        echo "<h2>Erro ao adicionar: " . $e->getMessage() . "</h2>";
+    }
+}
+?>
