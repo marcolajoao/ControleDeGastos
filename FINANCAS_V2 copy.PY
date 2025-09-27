@@ -1,6 +1,6 @@
 from datetime import datetime
 import pandas as pd
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, text, MetaData, Table, Column, Integer, String, Date, Float, DateTime
 
 # 1. Configurações de conexão e variável obrigatória
 DB_CREDENCIAIS = {
@@ -55,6 +55,21 @@ try:
         result = conn.execute(text(f"SELECT 1 FROM HSSPESS WHERE NNUMEPESS = {NNUMEPESS} LIMIT 1"))
         if not result.fetchone():
             raise ValueError(f"NNUMEPESS {NNUMEPESS} não encontrado na tabela HSSPESS!")
+        
+        # Cria a tabela com Primary Key se não existir
+        conn.execute(text("""
+            CREATE TABLE IF NOT EXISTS TESTE (
+                NNUMEGASTO INT AUTO_INCREMENT PRIMARY KEY,
+                DREALGASTO DATE NOT NULL,
+                CDESCGASTO VARCHAR(255) NOT NULL,
+                NVALOGASTO DECIMAL(10,2) NOT NULL,
+                DINCLUGASTO DATETIME NOT NULL,
+                CCATEGASTO VARCHAR(100),
+                IGNORA_GASTO CHAR(1) DEFAULT 'N',
+                NNUMEPESS INT NOT NULL,
+                FOREIGN KEY (NNUMEPESS) REFERENCES HSSPESS(NNUMEPESS)
+            )
+        """))
         
         # Insere os dados
         LE_PLANILHA.to_sql('TESTE', con=engine, if_exists='append', index=False)
